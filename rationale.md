@@ -1,25 +1,24 @@
-# DESIGN RATIONALE — SHREERAKSHA MOTOR FNOL HELPLINE
+# Design Rationale: ShreeRaksha Motor FNOL Voice Agent
 
-## 1. Persona and Language Choice (Hinglish-First)
-- **Decision**: Hindi-first, conversational Hinglish tone.
-- **Why**: Policyholders calling after an accident are highly stressed. Using formal, Sanskritized Hindi (e.g., "पंजीकरण संख्या" for registration number) increases cognitive load. Hinglish terms like *policy*, *claim*, *garage*, and *surveyor* are universally understood in India and make the agent sound like a helpful, natural human.
+This document explains the design decisions made for the ShreeRaksha Motor First Notice of Loss (FNOL) voice agent.
 
-## 2. Safety-First Triage Priority
-- **Decision**: Immediate check for injuries/danger (*"108 / 112 ko call kiya?"*) before asking for a policy number or vehicle number.
-- **Why**: Reconciles the Claims Manager's bulletin (Artifact 2). Distressed callers require immediate empathy and safety validation. A rigid data-collection checklist during a medical emergency is poor customer service and a safety risk. 
+## 1. Persona and Language (Hinglish)
+We selected a Hindi-first, conversational Hinglish tone. Policyholders calling from an accident site or hospital are under high stress. Forcing them to navigate formal, Sanskritized Hindi (like using "पंजीकरण संख्या" for registration number) increases frustration. Using common English terms (policy, claim, garage, surveyor, cashless) matches standard spoken language in India, ensuring the agent sounds human and empathetic.
 
-## 3. Factual Logging and Legal Compliance
-- **Decision**: Neutral description capture using verbatim transcriptions of the accident, with strict filters against recording fault allocation, intoxication, or counter-blame.
-- **Why**: Reconciles the Compliance Memo (Artifact 3). Recorded statements about fault or intoxication can prejudice subsequent insurance investigations, surveyor findings, or Motor Accident Claims Tribunal (MACT) proceedings. The agent registers the notice of loss neutrally and leaves fault determination to the surveyor.
+## 2. Safety Triage Integration
+Following the claims manager's guidelines, safety check is positioned at the start of the call. If a caller is injured or stranded, the agent is instructed to ask "108 / 112 ko call kiya kya?" immediately before gathering any policy or vehicle details. In active emergencies, the agent is configured to skip the standard checklist and transfer the call to the emergency desk.
 
-## 4. Operational Realism in Next Steps
-- **Decision**: Triggering a network garage list by SMS without promising a specific garage location or availability.
-- **Why**: Reconciles the Surveyor Desk note (Artifact 4). Real-time garage occupancy and proximity cannot be determined reliably by a static prompt. Letting dispatch confirm availability via SMS ensures we do not send a caller to a closed or full garage.
+## 3. Neutral Logging & Legal Liability
+To protect the claims process, the agent is trained to record accident descriptions factually and neutrally. If a caller admits fault or blames third parties, the agent filters these subjective statements. The database records are kept strictly factual (e.g. "two vehicles collided") and avoid mentions of alcohol or intoxication, leaving fault assessment entirely to the surveyor and subsequent claims investigations.
 
-## 5. Settlement Query Handling
-- **Decision**: Politely redirecting payment timeline/amount questions ("kab paisa milega") to the standard cashless workflow, without providing concrete numbers or dates.
-- **Why**: Prevents the company from being legally bound to verbal promises, while easing the caller's anxiety by highlighting the cashless convenience.
+## 4. Operational Realism for Garages
+The agent does not promise specific network garages or guarantee their availability. Instead, it explains that a curated list is sent via SMS and that the dispatch team confirms the closest open location. This prevents sending policyholders to full or closed repair centers.
 
-## 6. Escalation Triggers
-- **Decision**: Clear triggers for `[ACTION: transfer_to_claims_specialist]` (third-party injuries/fatalities, active emergency, suspected fraud, hostile caller) vs. `[ACTION: request_human_help]` (general human request).
-- **Why**: Optimizes human agent utilization by reserving specialists for high-priority legal, medical, or complex situations, while automated flows handle standard intakes.
+## 5. Settlement Timeline Management
+When callers ask "paisa kab milega," the agent redirects them to the standard cashless claim workflow without providing specific dates or figures. This manages expectations without legally binding the company to a verbal estimate.
+
+## 6. Escalation Matrix
+The system uses a two-tier handoff system:
+- High-priority claims specialist transfer: Triggered for third-party injuries, active emergency support, or hostile interactions.
+- General human assistance transfer: Triggered for general assistance queries the automated flow cannot handle.
+This optimizes human resource allocation by directing legal and safety escalations to claims managers while resolving standard claims automatically.
