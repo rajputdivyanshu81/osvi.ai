@@ -17,7 +17,13 @@ The agent does not promise specific network garages or guarantee their availabil
 ## 5. Settlement Timeline Management
 When callers ask "paisa kab milega," the agent redirects them to the standard cashless claim workflow without providing specific dates or figures. This manages expectations without legally binding the company to a verbal estimate.
 
-## 6. Escalation Matrix
+## 6. Strict SLA Adherence
+The agent is explicitly instructed not to promise specific timeframes like "by next morning" for surveyor assignment or garage arrangements. All expectations are strictly managed according to the 24-working-hours SLA constraint to prevent policyholder dissatisfaction and avoid violating internal service level agreements.
+
+## 7. Concise Communication
+To prevent unnecessary repetition and improve the caller's experience, the system prompt directs the agent to be concise. Long explanations are trimmed, and the agent avoids over-explaining the next steps, keeping the focus on efficiency and empathetic handling.
+
+## 8. Escalation Matrix
 The system uses a two-tier handoff system:
 - High-priority claims specialist transfer: Triggered for third-party injuries, active emergency support, or hostile interactions.
 - General human assistance transfer: Triggered for general assistance queries the automated flow cannot handle.
